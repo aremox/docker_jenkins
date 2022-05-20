@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    hostname: jenkins
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - net3 
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+  worker01:
+    image: worker:base
+    build: ../agente
+    container_name: worker01
+    hostname: worker01
+    volumes:
+      - jenkins_tmp:/var/tmp
+    environment:
+      SSH_USER: jenkins
+      SSH_PASSWORD: s3cr3t
+    networks:
+      - net3
+  worker02:
+    image: worker:base
+    build: ../agente
+    container_name: worker02
+    hostname: worker02
+    volumes:
+      - jenkins_tmp:/var/tmp
+    environment:
+      SSH_USER: jenkins
+      SSH_PASSWORD: s3cr3t
+    networks:
+      - net3
+  gitlab:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    container_name: gitlab
+    hostname: gitlab
+    ports:
+      - '80:80'
+      - '443:443'
+      - '22:22'
+    volumes:
+      - 'gitlab_config:/etc/gitlab'
+      - 'gitlab_log:/var/log/gitlab'
+      - 'gitlab_data:/var/opt/gitlab'
+    shm_size: '256m'
+    networks:
+      - net3
+volumes:
+  jenkins_home:
+  jenkins_tmp:
+  gitlab_config:
+  gitlab_log:
+  gitlab_data:
+networks:
+  net3:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.16.238.0/24
+      -
+        subnet: 2001:3984:3989::/64

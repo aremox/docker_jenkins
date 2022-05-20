@@ -1,0 +1,11 @@
+git clone https://github.com/aremox/helloworld-unir.git
+cd helloworld-unir/
+export PYTHONPATH=${PYTHONPATH}:.
+python ./app/calc.py
+pytest ./test/unit
+export FLASK_APP=app/api.py
+export FLASK_ENV=development
+nohup flask run >/dev/null 2>&1 &
+nohup java -jar /wiremock-jre8-standalone-2.33.1.jar --port 9090 --root-dir /tmp &
+sleep 30
+pytest test/rest
