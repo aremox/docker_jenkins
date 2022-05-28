@@ -1,0 +1,6 @@
+{ "index" : { "_index" : "educative"} }
+{ "articleName" : "elasticsearch-intro" }
+{ "index" : { "_index" : "educative"} }
+{ "articleName" : "elasticsearch-insert-data" }
+{ "index" : { "_index" : "educative"} }
+{ "articleName" : "elasticsearch-query-data" }

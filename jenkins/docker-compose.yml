@@ -8,7 +8,7 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
     networks:
-      - net3 
+      - cicd 
     ports:
       - "8080:8080"
       - "50000:50000"
@@ -23,7 +23,7 @@ services:
       SSH_USER: jenkins
       SSH_PASSWORD: s3cr3t
     networks:
-      - net3
+      - cicd
   worker02:
     image: worker:base
     build: ../agente
@@ -35,7 +35,7 @@ services:
       SSH_USER: jenkins
       SSH_PASSWORD: s3cr3t
     networks:
-      - net3
+      - cicd
   gitlab:
     image: 'gitlab/gitlab-ee:latest'
     restart: always
@@ -51,21 +51,14 @@ services:
       - 'gitlab_data:/var/opt/gitlab'
     shm_size: '256m'
     networks:
-      - net3
+      - cicd
 volumes:
   jenkins_home:
   jenkins_tmp:
   gitlab_config:
   gitlab_log:
   gitlab_data:
+
 networks:
-  net3:
-    driver: bridge
-    enable_ipv6: true
-    ipam:
-      driver: default
-      config:
-      -
-        subnet: 172.16.238.0/24
-      -
-        subnet: 2001:3984:3989::/64
+  cicd:
+    external: true
