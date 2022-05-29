@@ -4,9 +4,9 @@
 output {
   elasticsearch {
     hosts => ["https://es01:9200","https://es02:9200","https://es03:9200"]
-    user => "elastic"
-    password => "elasticpw"
-    ssl => false
+    user => "logstashinter"
+    password => "logstashinterpw"
+    ssl => true
     ssl_certificate_verification => false
     cacert => "/usr/share/logstash/config/ca.crt"
   }

@@ -1,8 +1,8 @@
 #https://github.com/elastic/logstash/blob/main/config/logstash.yml
 http.host: "0.0.0.0"
 xpack.monitoring.enabled: true
-xpack.monitoring.elasticsearch.username: elastic
-xpack.monitoring.elasticsearch.password: elasticpw
+xpack.monitoring.elasticsearch.username: logstashinter
+xpack.monitoring.elasticsearch.password: logstashinterpw
 xpack.monitoring.elasticsearch.hosts: [ "https://es01:9200", "https://es02:9200", "https://es03:9200" ]
 #xpack.monitoring.elasticsearch.ssl.certificate_authority: [ "/path/to/ca.crt" ]
 xpack.monitoring.elasticsearch.ssl.truststore.path: "/usr/share/logstash/config/ca.crt"
