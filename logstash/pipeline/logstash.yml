@@ -1,0 +1,21 @@
+
+input {
+  http {
+    host => "0.0.0.0" # default: 0.0.0.0
+    port => 31311 # default: 8080
+  }
+}
+
+ output {
+   elasticsearch {
+    hosts => ["https://es01:9200","https://es02:9200","https://es03:9200"]
+    user => "elastic"
+    password => "elasticpw"
+    ssl => false
+    ssl_certificate_verification => false
+    cacert => "/usr/share/logstash/config/ca.crt"
+    index => "file"
+    document_id => "%{id}"
+   }
+  stdout { codec => rubydebug}
+}

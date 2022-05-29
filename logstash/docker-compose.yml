@@ -6,10 +6,26 @@ services:
     container_name: logstash
     hostname: logstash
     volumes:
-      - ./pipeline:/usr/share/logstash/pipeline
-      - ./settings:/usr/share/logstash/config
+      - logstash_settings:/usr/share/logstash/config
+      - logstash_pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "31311:31311"
     networks:
       - cicd
+volumes:
+  logstash_settings:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: C:\\python\\docker\\docker_jenkins\\logstash\\settings\\
+  logstash_pipeline:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: C:\\python\\docker\\docker_jenkins\\logstash\\pipeline\\
+
 networks:
   cicd:
     external: true
