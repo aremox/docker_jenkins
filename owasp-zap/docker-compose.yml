@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  owaspzap:
+    image: 'owasp/zap2docker-stable'
+    command: zap-webswing.sh
+    container_name: owaspzap
+    hostname: owaspzap
+    ports:
+      - '8081:8080'
+      - '8090:8090'
+    volumes:
+      - 'owaspzap:/zap/wrk/'
+    networks:
+      - cicd
+volumes:
+  owaspzap:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: C:\\python\\docker\\docker_jenkins\\owasp-zap\\owaspzap\\
+
+networks:
+  cicd:
+    external: true

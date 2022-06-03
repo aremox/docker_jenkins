@@ -38,7 +38,6 @@ services:
       - cicd
   gitlab:
     image: 'gitlab/gitlab-ee:latest'
-    restart: always
     container_name: gitlab
     hostname: gitlab
     ports:
